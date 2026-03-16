@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Daily Accomplishment Recording - Oplan Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <!-- PDF generation libraries (loaded from CDN in the browser) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="app-title">Daily Accomplishment</div>
+        <div class="app-subtitle">Police Operations (Oplan)</div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-view="dashboard">Dashboard</button>
+        <button class="nav-item" data-view="reports">Reports</button>
+        <div class="nav-section-label">Oplan Forms</div>
+        <button class="nav-item" data-view="oplan" data-oplan-id="pagtugis">Pagtugis Form</button>
+        <button class="nav-item" data-view="oplan" data-oplan-id="paglalansag-omega">Paglalansag Omega Form</button>
+        <button class="nav-item" data-view="oplan" data-oplan-id="bolilyo">Bolilyo Form</button>
+        <button class="nav-item" data-view="oplan" data-oplan-id="lira">Lira Form</button>
+        <button class="nav-item" data-view="oplan" data-oplan-id="megashopper">Megashopper Form</button>
+        <button class="nav-item" data-view="oplan" data-oplan-id="kalikasan">Kalikasan Form</button>
+        <button class="nav-item" data-view="oplan" data-oplan-id="big-bertha">Big Bertha Form</button>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="view-title">Dashboard</h1>
+          <p id="view-subtitle" class="muted">
+            Overview of operational accomplishments across all Oplans.
+          </p>
+        </div>
+        <div class="topbar-meta">
+          <span id="today-label"></span>
+        </div>
+      </header>
+      <section id="view-container" class="view-container">
+        <!-- Content is rendered by app.js -->SSS
+      </section>
+    </main>
+  </div>
+</body>
+</html>
+
