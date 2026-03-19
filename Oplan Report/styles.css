@@ -24,11 +24,18 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--color-text);
   background-color: var(--color-bg);
+  overflow: hidden;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 .layout {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .sidebar {
@@ -38,6 +45,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 20px 16px;
+  overflow: hidden;
 }
 
 .sidebar-header {
@@ -103,6 +111,8 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .topbar {
@@ -113,6 +123,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .topbar h1 {
@@ -137,6 +148,37 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.view-container.dashboard-view {
+  overflow-y: auto;
+}
+
+.records-shell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+
+.records-shell .form-header {
+  display: block;
+}
+
+.records-shell .form-header > div:first-child {
+  min-width: 0;
+}
+
+.records-shell .form-actions {
+  margin-top: 8px;
+  margin-left: 0;
+  justify-content: flex-start;
 }
 
 .cards-row {
@@ -228,6 +270,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
@@ -238,6 +281,9 @@ body {
 
 .form-actions {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-left: auto;
   gap: 6px;
 }
 
@@ -249,6 +295,132 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 10px 12px;
+}
+
+.drawer-form {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.drawer-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.drawer-group:first-child {
+  grid-column: 1 / -1;
+}
+
+.drawer-group:last-child {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 10px;
+  align-content: start;
+}
+
+.drawer-group:last-child h4 {
+  grid-column: 1 / -1;
+}
+
+.drawer-group h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.record-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.28);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.record-drawer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.record-drawer {
+  width: min(760px, 100%);
+  max-height: 88vh;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.28);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(8px) scale(0.98);
+  transition: transform 220ms ease, opacity 220ms ease;
+  opacity: 0;
+}
+
+.record-drawer-overlay.open .record-drawer {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.record-drawer-header {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.record-drawer-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.drawer-close-btn {
+  appearance: none;
+  border: none;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.drawer-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.record-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 14px 16px;
+}
+
+.record-drawer-actions {
+  border-top: 1px solid var(--color-border);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  background: #fff;
 }
 
 .form-field {
@@ -317,11 +489,12 @@ body {
 .form-toolbar-right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
+  margin-left: 12px;
 }
 
 .search-input {
-  max-width: 260px;
+  max-width: 320px;
   width: 100%;
 }
 
@@ -344,12 +517,15 @@ body {
   border: 1px solid var(--color-border);
   padding: 0;
   margin-top: 8px;
-  overflow: hidden;
+  overflow: auto;
   box-shadow: var(--shadow-soft);
+  max-width: 100%;
+  min-height: 0;
 }
 
 table {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
   font-size: 12px;
 }
@@ -362,13 +538,37 @@ th,
 td {
   padding: 6px 8px;
   border-bottom: 1px solid #e5e7eb;
-  text-align: left;
+  text-align: center;
   vertical-align: top;
 }
 
 th {
   font-weight: 600;
   font-size: 12px;
+}
+
+th.text-left,
+td.text-left {
+  text-align: left;
+}
+
+.resizable-header {
+  position: relative;
+  user-select: none;
+}
+
+.resizable-header .col-resizer {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.resizable-header .col-resizer:hover {
+  background: rgba(31, 79, 143, 0.16);
 }
 
 tbody tr:nth-child(even) {
@@ -393,6 +593,10 @@ tbody tr:hover {
   font-size: 11px;
   border: 1px solid var(--color-border);
   background-color: #f1f5f9;
+}
+
+.form-toolbar-right .small {
+  min-width: 92px;
 }
 
 .badge.oplan {
@@ -452,16 +656,20 @@ tbody tr:hover {
 
 .arrested-persons-container {
   margin-top: 10px;
+  margin-left: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: flex-start;
 }
 
 .arrested-person-field {
+  width: 100%;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   padding: 10px;
   background: #f8fafc;
+  text-align: left;
 }
 
 .arrested-person-title {
@@ -474,19 +682,68 @@ tbody tr:hover {
 .arrested-person-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(140px, 1fr));
-  gap: 8px;
+  gap: 10px;
+  justify-content: start;
+  justify-items: start;
+  align-items: start;
+}
+
+.arrested-list-cell {
+  white-space: pre-line;
+  line-height: 1.35;
+}
+
+.oplan-view .form-toolbar {
+  flex-shrink: 0;
+}
+
+.oplan-view .cards-row {
+  flex-shrink: 0;
+}
+
+.oplan-view .table-wrapper {
+  flex: 1;
+  overflow: auto;
+}
+
+.reports-view {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.reports-view .report-layout {
+  min-height: 0;
+}
+
+.reports-view #report-results {
+  min-height: 0;
+}
+
+body.drawer-open .main {
+  overflow: hidden;
 }
 
 .arrested-name-part {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  text-align: left;
+  width: 100%;
+  margin: 0;
 }
 
 .arrested-name-part label {
   font-size: 12px;
   font-weight: 500;
   color: var(--color-muted);
+  width: 100%;
+  text-align: left;
+}
+
+.arrested-name-part input {
+  width: 100%;
+  text-align: left;
 }
 
 .report-summary-row {
@@ -499,6 +756,29 @@ tbody tr:hover {
   font-size: 14px;
   font-weight: 600;
   margin: 6px 0 4px;
+}
+
+.report-output-card {
+  gap: 8px;
+}
+
+.report-output-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+
+.report-output-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.report-summary-table-wrap {
+  max-height: none;
+  overflow: visible;
 }
 
 .small {
@@ -537,6 +817,24 @@ tbody tr:hover {
 
   .main {
     min-height: calc(100vh - 80px);
+  }
+
+  .view-container {
+    overflow: auto;
+  }
+
+  .drawer-form,
+  .drawer-group:last-child {
+    grid-template-columns: 1fr;
+  }
+
+  .record-drawer-overlay {
+    padding: 10px;
+  }
+
+  .record-drawer {
+    width: min(100%, 680px);
+    max-height: 92vh;
   }
 }
 
